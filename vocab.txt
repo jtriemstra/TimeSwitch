@@ -1,0 +1,11 @@
+<phrases>
+	<phrase>APAC</phrase>
+	<phrase>AU</phrase>
+	<phrase>Ford</phrase>
+	<phrase>training</phrase>
+	<phrase>support</phrase>
+	<phrase>Castle</phrase>
+	<phrase>end of year</phrase>
+	<phrase>Kashi blog</phrase>
+	<phrase>site migrations</phrase>
+</phrases>

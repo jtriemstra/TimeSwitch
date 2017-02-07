@@ -1,0 +1,37 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/action_today"
+        android:title="@string/title_activity_today"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/action_report_week"
+        android:title="@string/title_activity_report_week"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/likely_words"
+        android:title="@string/title_activity_likely_words"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/admin"
+        android:title="@string/title_activity_admin"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/corrections"
+        android:title="@string/title_activity_corrections"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <item
+        android:id="@+id/errors"
+        android:title="@string/title_activity_errors"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+</menu>

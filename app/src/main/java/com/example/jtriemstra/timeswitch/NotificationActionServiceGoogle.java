@@ -19,10 +19,10 @@ import java.util.ArrayList;
 /**
  * Created by JTriemstra on 12/21/2015.
  */
-public class NotificationActionService extends Service {
+public class NotificationActionServiceGoogle extends Service {
     private SpeechRecognizer m_objSpeechRecognizer;
-    public static final String TAG = "MainActivity";
-    //public static final String NOTIFICATION_KEY = "com.example.jtriemstra.timeswitch.NAS";
+    public static final String TAG = "NotificationActionServi";
+    public static final String PROVIDER_NAME="Google";
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -31,7 +31,7 @@ public class NotificationActionService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
-        Log.d("NAService", "start received");
+        Log.d(TAG, "start received");
 
         Intent objRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         objRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
@@ -49,7 +49,7 @@ public class NotificationActionService extends Service {
     }
 
     public void onDestroy (){
-        Log.d("NAService", "destroy received");
+        Log.d(TAG, "destroy received");
         m_objSpeechRecognizer.destroy();
     }
 

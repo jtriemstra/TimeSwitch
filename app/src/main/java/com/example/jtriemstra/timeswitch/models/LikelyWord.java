@@ -18,7 +18,8 @@ import java.util.List;
 public class LikelyWord extends ModelBase {
     private static ArrayList<String> m_lstLikelyWords;
     private static ArrayList<String> m_lstActualJobs;
-    public static final String START_WORK = "start work";
+
+    public static final String TABLE_NAME = "LikelyWord";
     public static final String GO_HOME = "go home";
 
     public LikelyWord(Context objContext){
@@ -29,7 +30,7 @@ public class LikelyWord extends ModelBase {
 
         if (m_lstLikelyWords == null){
             m_lstLikelyWords = new ArrayList<String>();
-            Cursor objCursor = m_objDatabase.rawQuery("SELECT * FROM " + DatabaseHelper.TABLENAME_LIKELYWORDS, null);
+            Cursor objCursor = m_objDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
 
             if (objCursor.getCount() > 0) {
                 Log.d("WordMatcher", "cursor 1 has values");
@@ -150,7 +151,7 @@ public class LikelyWord extends ModelBase {
     }
 
     public  void add(String strNewWord){
-        m_objDatabase.execSQL("INSERT INTO " + DatabaseHelper.TABLENAME_LIKELYWORDS + " VALUES (?);", new String[]{strNewWord});
+        m_objDatabase.execSQL("INSERT INTO " + TABLE_NAME + " VALUES (?);", new String[]{strNewWord});
     }
 
     public String[] getAll(){

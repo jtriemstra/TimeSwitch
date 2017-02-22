@@ -19,21 +19,23 @@ import java.util.TimeZone;
  * Created by JTriemstra on 12/24/2015.
  */
 public class TimeLog extends ModelBase {
+    public static final String TABLE_NAME = "TimeLog";
+
     public TimeLog(Context objContext){
         super(objContext);
     }
 
     public void changeJob(String strJob){
-        m_objDatabase.execSQL("UPDATE " + DatabaseHelper.TABLENAME_TIMELOG + " SET EndTime = julianday('now'), Elapsed = cast((julianday('now') - julianday(StartTime)) * 24 * 60 * 60 as INT) WHERE EndTime IS NULL");
+        m_objDatabase.execSQL("UPDATE " + TABLE_NAME + " SET EndTime = julianday('now'), Elapsed = cast((julianday('now') - julianday(StartTime)) * 24 * 60 * 60 as INT) WHERE EndTime IS NULL");
         if (!LikelyWord.GO_HOME.equalsIgnoreCase(strJob)) {
-            m_objDatabase.execSQL("INSERT INTO " + DatabaseHelper.TABLENAME_TIMELOG + " VALUES (?, julianday('now'), null, null)", new String[]{strJob});
+            m_objDatabase.execSQL("INSERT INTO " + TABLE_NAME + " VALUES (?, julianday('now'), null, null)", new String[]{strJob});
         }
     }
 
     public List<TimeLogEntry> listToday(){
         Log.d("TimeLog", "entering listToday");
         ArrayList<TimeLogEntry> lstReturn = new ArrayList<TimeLogEntry>();
-        Cursor objCursor = m_objDatabase.rawQuery("SELECT Job, time(StartTime, 'localtime'), time(EndTime, 'localtime'), ROWID, datetime(StartTime), datetime(EndTime) FROM " + DatabaseHelper.TABLENAME_TIMELOG + " WHERE date(StartTime, 'localtime') = date('now', 'localtime');", null);
+        Cursor objCursor = m_objDatabase.rawQuery("SELECT Job, time(StartTime, 'localtime'), time(EndTime, 'localtime'), ROWID, datetime(StartTime), datetime(EndTime) FROM " + TABLE_NAME + " WHERE date(StartTime, 'localtime') = date('now', 'localtime');", null);
         //Cursor objCursor = m_objDatabase.rawQuery("SELECT Job, strftime('%Y-%m-%d', julianday('now')), strftime('%Y-%m-%d', julianday('now', '+1 day')) FROM TimeLog ;--WHERE StartTime BETWEEN julianday('now') AND julianday('now', '+1 day');", null);
         if (objCursor.getCount() > 0) {
             Log.d("TimeLog", "cursor has values");
@@ -72,12 +74,12 @@ public class TimeLog extends ModelBase {
     }
 
     public void deleteAll(){
-        m_objDatabase.execSQL("DELETE FROM " + DatabaseHelper.TABLENAME_TIMELOG);
+        m_objDatabase.execSQL("DELETE FROM " + TABLE_NAME);
     }
 
     public List<String> listJobs(){
         ArrayList<String> lstReturn = new ArrayList<>();
-        Cursor objCursor = m_objDatabase.rawQuery("SELECT DISTINCT Job FROM " + DatabaseHelper.TABLENAME_TIMELOG + " WHERE Job NOT IN (SELECT Actual FROM " + DatabaseHelper.TABLENAME_CORRECTIONS + ");", null);
+        Cursor objCursor = m_objDatabase.rawQuery("SELECT DISTINCT Job FROM " + TABLE_NAME + " WHERE Job NOT IN (SELECT Actual FROM " + Correction.TABLE_NAME + ");", null);
         if (objCursor.getCount() > 0){
             objCursor.moveToFirst();
             do {
@@ -90,7 +92,7 @@ public class TimeLog extends ModelBase {
 
     public List<String> listRecentJobs(){
         ArrayList<String> lstReturn = new ArrayList<>();
-        Cursor objCursor = m_objDatabase.rawQuery("SELECT Job FROM (SELECT Job, max(julianday(StartTime)) AS MaxTime FROM " + DatabaseHelper.TABLENAME_TIMELOG + " GROUP BY Job) ORDER BY MaxTime DESC;", null);
+        Cursor objCursor = m_objDatabase.rawQuery("SELECT Job FROM (SELECT Job, max(julianday(StartTime)) AS MaxTime FROM " + TABLE_NAME + " GROUP BY Job) ORDER BY MaxTime DESC;", null);
         if (objCursor.getCount() > 0){
             objCursor.moveToFirst();
             do {
@@ -111,6 +113,6 @@ public class TimeLog extends ModelBase {
         } else {
             strDate = iso8601Format.format(dtNewStart);
         }
-        m_objDatabase.execSQL("UPDATE " + DatabaseHelper.TABLENAME_TIMELOG + " SET " + strColumn + " = ?1 WHERE ROWID=?2", new String[] {strDate, Integer.toString(intRowID)});
+        m_objDatabase.execSQL("UPDATE " + TABLE_NAME + " SET " + strColumn + " = ?1 WHERE ROWID=?2", new String[] {strDate, Integer.toString(intRowID)});
     }
 }

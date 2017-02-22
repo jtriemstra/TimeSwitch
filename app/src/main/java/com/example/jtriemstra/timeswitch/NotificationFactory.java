@@ -1,6 +1,5 @@
 package com.example.jtriemstra.timeswitch;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -34,7 +33,7 @@ public class NotificationFactory {
         }
         else {
             //PendingIntent objClickIntentNuance = PendingIntent.getService(objContext, 0, (new Intent(objContext, NotificationActionServiceNuance.class)).setAction(NotificationActionServiceNuance.START), PendingIntent.FLAG_UPDATE_CURRENT);
-            PendingIntent objClickIntentGoogle = PendingIntent.getService(objContext, 0, new Intent(objContext, NotificationActionService.class), PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent objClickIntentGoogle = PendingIntent.getService(objContext, 0, new Intent(objContext, NotificationActionServiceGoogle.class), PendingIntent.FLAG_UPDATE_CURRENT);
             PendingIntent objClickIntentMenu = PendingIntent.getService(objContext, 0, new Intent(objContext, NotificationActionServiceMenu.class), PendingIntent.FLAG_UPDATE_CURRENT);
 
             mBuilder.addAction(R.drawable.ic_action_overflow, "Start", objClickIntentMenu)

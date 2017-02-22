@@ -67,7 +67,7 @@
                 android:value=".activities.MainActivity" />
         </activity>
 
-        <service android:name=".NotificationActionService" />
+        <service android:name=".NotificationActionServiceGoogle" />
         <service android:name=".NotificationActionServiceNuance" />
         <service android:name=".NotificationActionServiceMenu" />
 

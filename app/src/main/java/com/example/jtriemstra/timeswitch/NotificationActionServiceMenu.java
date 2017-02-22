@@ -30,7 +30,7 @@ import java.util.List;
  * Created by JTriemstra on 12/21/2015.
  */
 public class NotificationActionServiceMenu extends Service {
-    public static final String TAG = "MainActivity";
+    public static final String TAG = "NotificationServiceMenu";
     //public static final String NOTIFICATION_KEY = "com.example.jtriemstra.timeswitch.NAS";
 
     @Override
@@ -40,7 +40,7 @@ public class NotificationActionServiceMenu extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
-        Log.d("NAServiceMenu", "start received");
+        Log.d(TAG, "start received");
 
         final WindowManager mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
@@ -61,7 +61,7 @@ public class NotificationActionServiceMenu extends Service {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String strJob = ((TextView) view).getText().toString();
-                Log.d("NAServiceMenu", strJob);
+                Log.d(TAG, strJob);
                 TimeLog objTimeLogModel = new TimeLog(getApplicationContext());
 
                 objTimeLogModel.changeJob(strJob);
@@ -85,7 +85,7 @@ public class NotificationActionServiceMenu extends Service {
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("NAServiceMenu", "close button click");
+                Log.d(TAG, "close button click");
                 mWindowManager.removeView(mView);
             }
         });
@@ -94,7 +94,7 @@ public class NotificationActionServiceMenu extends Service {
     }
 
     public void onDestroy (){
-        Log.d("NAService", "destroy received");
+        Log.d(TAG, "destroy received");
         //m_objSpeechRecognizer.destroy();
     }
 

@@ -11,6 +11,8 @@ import java.util.HashMap;
  * Created by JTriemstra on 1/2/2016.
  */
 public class Correction extends ModelBase {
+    public static final String TABLE_NAME = "Corrections";
+
     private HashMap<String, String> m_hshStoredCorrections;
 
     public Correction(Context objContext){
@@ -19,8 +21,8 @@ public class Correction extends ModelBase {
     }
 
     public void add(String strHeard, String strActual){
-        m_objDatabase.execSQL("INSERT INTO " + DatabaseHelper.TABLENAME_CORRECTIONS + " VALUES (?,?);", new String[]{strHeard, strActual});
-        m_objDatabase.execSQL("UPDATE " + DatabaseHelper.TABLENAME_TIMELOG + " SET Job = ? WHERE Job = ? COLLATE NOCASE", new String[]{strActual, strHeard});
+        m_objDatabase.execSQL("INSERT INTO " + TABLE_NAME + " VALUES (?,?);", new String[]{strHeard, strActual});
+        m_objDatabase.execSQL("UPDATE " + TABLE_NAME + " SET Job = ? WHERE Job = ? COLLATE NOCASE", new String[]{strActual, strHeard});
     }
 
     public boolean containsKey(String strKey){
@@ -33,7 +35,7 @@ public class Correction extends ModelBase {
 
     private HashMap<String, String> getAll(){
         HashMap<String, String> hshReturn = new HashMap<>();
-        Cursor objCursor = m_objDatabase.rawQuery("SELECT * FROM " + DatabaseHelper.TABLENAME_CORRECTIONS, null);
+        Cursor objCursor = m_objDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         if (objCursor.getCount() > 0){
             objCursor.moveToFirst();
             do{
